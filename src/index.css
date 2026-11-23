@@ -2,49 +2,151 @@
 
 @layer base {
   body {
-    font-family: 'Inter', sans-serif;
-    background-color: #FAF6EE;
-    background-image: radial-gradient(#11111118 1.25px, transparent 1.25px);
-    background-size: 16px 16px;
+    font-family: 'Comic Neue', cursive, sans-serif;
+    background-color: #F5EFE0;
+    background-image:
+            radial-gradient(#11111116 1.35px, transparent 1.35px),
+            radial-gradient(#ff3b300d 1.35px, #f5efe0 1.35px);
+    background-size: 18px 18px;
+    background-position: 0 0, 9px 9px;
     overflow-x: hidden;
   }
 }
 
-.font-comic {
+.font-comic-display {
   font-family: 'Bangers', cursive;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
 }
 
+.font-comic-stamp {
+  font-family: 'Bungee', cursive;
+  letter-spacing: 0.03em;
+}
+
+.font-mono-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Comic 3D Extruded Title */
+.comic-title-shadow {
+  text-shadow:
+          3px 3px 0px #111111,
+          -1.5px -1.5px 0px #111111,
+          1.5px -1.5px 0px #111111,
+          -1.5px 1.5px 0px #111111,
+          1.5px 1.5px 0px #111111,
+          6px 6px 0px #FF3B30;
+}
+
+/* Halftone Overlay Patterns */
+.bg-halftone-yellow {
+  background-color: #FFE14D;
+  background-image: radial-gradient(#11111126 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}
+
+.bg-halftone-red {
+  background-color: #FF3B30;
+  background-image: radial-gradient(#11111128 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}
+
+.bg-halftone-cyan {
+  background-color: #2EC4B6;
+  background-image: radial-gradient(#11111124 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}
+
+.bg-halftone-purple {
+  background-color: #8B5CF6;
+  background-image: radial-gradient(#11111128 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}
+
+.bg-action-burst {
+  background: repeating-conic-gradient(
+          from 0deg,
+          #FFE14D 0deg 10deg,
+          #FFD000 10deg 20deg
+  );
+}
+
+/* Core Comic Panels */
 .comic-panel {
+  border: 3.5px solid #111111;
+  box-shadow: 7px 7px 0px 0px #111111;
+  background-color: #FFFFFF;
+}
+
+.comic-panel-sm {
   border: 3px solid #111111;
-  box-shadow: 6px 6px 0px 0px #111111;
+  box-shadow: 4px 4px 0px 0px #111111;
   background-color: #FFFFFF;
 }
 
 .comic-panel-interactive {
-  border: 3px solid #111111;
-  box-shadow: 6px 6px 0px 0px #111111;
+  border: 3.5px solid #111111;
+  box-shadow: 7px 7px 0px 0px #111111;
   background-color: #FFFFFF;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.25s ease;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease, opacity 0.25s ease;
 }
 
 .comic-panel-interactive:hover {
-  transform: translate(-3px, -3px) rotate(-0.4deg);
-  box-shadow: 9px 9px 0px 0px #111111;
+  transform: translate(-4px, -4px) rotate(-0.45deg);
+  box-shadow: 11px 11px 0px 0px #111111;
 }
 
+/* Tactile Buttons */
 .comic-btn {
-  border: 2.5px solid #111111;
-  box-shadow: 3px 3px 0px 0px #111111;
+  border: 3px solid #111111;
+  box-shadow: 4px 4px 0px 0px #111111;
   transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s ease;
 }
 
 .comic-btn:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px 0px #111111;
+  box-shadow: 6px 6px 0px 0px #111111;
 }
 
 .comic-btn:active {
-  transform: translate(1px, 1px);
+  transform: translate(2px, 2px);
   box-shadow: 1px 1px 0px 0px #111111;
+}
+
+/* Speech Bubble with Comic Pointer Tail */
+.speech-bubble {
+  position: relative;
+  border: 3px solid #111111;
+  background: #FFFFFF;
+  box-shadow: 5px 5px 0px 0px #111111;
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  left: 34px;
+  border-width: 18px 16px 0 0;
+  border-style: solid;
+  border-color: #111111 transparent transparent transparent;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -11px;
+  left: 37px;
+  border-width: 13px 11px 0 0;
+  border-style: solid;
+  border-color: #FFFFFF transparent transparent transparent;
+}
+
+/* Jagged Comic SFX Starburst */
+.sfx-starburst {
+  clip-path: polygon(
+          50% 0%, 63% 14%, 84% 6%, 82% 26%, 100% 35%, 86% 50%,
+          100% 66%, 81% 73%, 85% 94%, 64% 85%, 50% 100%, 36% 85%,
+          15% 94%, 19% 73%, 0% 66%, 14% 50%, 0% 35%, 18% 26%,
+          16% 6%, 37% 14%
+  );
 }

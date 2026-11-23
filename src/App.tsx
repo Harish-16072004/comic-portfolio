@@ -9,6 +9,8 @@ import {
   ArrowUpRight,
   Sparkles,
   RotateCcw,
+  Award,
+  Phone,
 } from 'lucide-react';
 import {
   PROFILE,
@@ -16,10 +18,12 @@ import {
   ORIGIN_STORY,
   SKILL_GROUPS,
   PROJECTS,
+  HONORS_AND_EDU,
   type RoleId,
   type ProjectItem,
 } from './data/portfolioData';
 import { ProjectModal } from './components/ProjectModal';
+import { HeroComicEmblem, ProjectComicDiagram } from './components/ComicVisuals';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,9 +54,9 @@ export function App() {
       }
 
       gsap.from('.hero-stagger', {
-        y: 26,
+        y: 28,
         opacity: 0,
-        duration: 0.6,
+        duration: 0.65,
         stagger: 0.08,
         ease: 'power3.out',
         clearProps: 'transform',
@@ -68,7 +72,7 @@ export function App() {
         clearProps: 'transform',
         scrollTrigger: {
           trigger: '.origin-section',
-          start: 'top 82%',
+          start: 'top 84%',
           once: true,
         },
       });
@@ -82,7 +86,7 @@ export function App() {
         clearProps: 'transform',
         scrollTrigger: {
           trigger: '.skills-section',
-          start: 'top 82%',
+          start: 'top 84%',
           once: true,
         },
       });
@@ -97,7 +101,21 @@ export function App() {
         clearProps: 'transform',
         scrollTrigger: {
           trigger: '.projects-section',
-          start: 'top 82%',
+          start: 'top 84%',
+          once: true,
+        },
+      });
+
+      gsap.from('.honor-panel', {
+        y: 30,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'power2.out',
+        clearProps: 'transform',
+        scrollTrigger: {
+          trigger: '.honors-section',
+          start: 'top 86%',
           once: true,
         },
       });
@@ -110,8 +128,8 @@ export function App() {
     if (!sfxRef.current) return;
     gsap.fromTo(
         sfxRef.current,
-        { scale: 0.75, rotate: -8 },
-        { scale: 1, rotate: 2, duration: 0.3, ease: 'back.out(2)' }
+        { scale: 0.7, rotate: -10 },
+        { scale: 1, rotate: 2, duration: 0.32, ease: 'back.out(2.2)' }
     );
   }, [activeRole]);
 
@@ -133,54 +151,120 @@ export function App() {
   const matchingCount = PROJECTS.filter(isProjectHighlighted).length;
 
   return (
-      <div ref={pageRef} className="min-h-screen px-4 pb-12 pt-6 md:px-8 md:pt-8">
+      <div ref={pageRef} className="min-h-screen pb-16">
         {/* Top Scroll-Driven Reading Progress Bar */}
-        <div className="fixed left-0 top-0 z-40 h-2.5 w-full border-b-2 border-[#111111] bg-white">
+        <div className="fixed left-0 top-0 z-50 h-2.5 w-full border-b-[3px] border-[#111111] bg-white">
           <div
               ref={progressRef}
-              className="h-full w-full origin-left scale-x-0 bg-[#FF6B6B]"
+              className="h-full w-full origin-left scale-x-0 bg-[#FF3B30]"
           />
         </div>
 
-        <div className="mx-auto max-w-6xl space-y-12 pt-2">
-          {/* ================= 1. THE COVER (HERO) ================= */}
-          <header className="comic-panel hero-stagger overflow-hidden">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b-[3px] border-[#111111] bg-[#FFE14D] px-5 py-2 text-xs font-extrabold uppercase tracking-wider">
-              <span>{PROFILE.issueTag}</span>
+        {/* Sticky Comic Strip Navigation */}
+        <nav className="sticky top-2.5 z-40 border-b-[3.5px] border-[#111111] bg-[#FFFDF7]/95 backdrop-blur-xs">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-2.5 md:px-8">
+            <a href="#cover" className="flex items-center gap-2">
+            <span className="border-2 border-[#111111] bg-[#FF3B30] px-2 py-0.5 font-comic-stamp text-xs text-white">
+              HJ-01
+            </span>
+              <span className="font-comic-display text-2xl tracking-wider">{PROFILE.name}</span>
+            </a>
+
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              {[
+                { label: 'ORIGIN', href: '#origin' },
+                { label: 'ARSENAL', href: '#skills' },
+                { label: 'ISSUES', href: '#projects' },
+                { label: 'HONORS', href: '#honors' },
+                { label: 'SIGNAL', href: '#contact' },
+              ].map((nav) => (
+                  <a
+                      key={nav.label}
+                      href={nav.href}
+                      className="border-2 border-transparent px-2.5 py-1 font-comic-stamp text-[11px] hover:border-[#111111] hover:bg-[#FFE14D]"
+                  >
+                    {nav.label}
+                  </a>
+              ))}
+            </div>
+          </div>
+        </nav>
+
+        <div className="mx-auto max-w-6xl space-y-14 px-4 pt-8 md:px-8">
+          {/* ================= 1. THE COVER (COMIC BOOK MASTHEAD) ================= */}
+          <header id="cover" className="comic-panel hero-stagger overflow-hidden bg-white">
+            {/* Classic Comic Masthead Top Bar */}
+            <div className="bg-halftone-yellow flex flex-wrap items-center justify-between gap-2 border-b-[3.5px] border-[#111111] px-5 py-2.5">
+              <div className="flex flex-wrap items-center gap-2">
+              <span className="border-2 border-[#111111] bg-[#111111] px-2.5 py-0.5 font-comic-stamp text-[11px] text-[#FFE14D]">
+                {PROFILE.priceTag}
+              </span>
+                <span className="font-mono-tech text-xs font-extrabold uppercase tracking-wider">
+                {PROFILE.issueTag}
+              </span>
+              </div>
               <span
                   ref={sfxRef}
-                  className="inline-block border-2 border-[#111111] bg-white px-2.5 py-0.5 font-comic text-sm tracking-wider"
+                  className="inline-block border-[2.5px] border-[#111111] bg-white px-3 py-0.5 font-comic-display text-lg tracking-wider shadow-[3px_3px_0px_0px_#111111]"
               >
               {ROLES[activeRole].sfx}
             </span>
             </div>
 
-            <div className="grid gap-8 p-6 md:grid-cols-12 md:p-10">
-              <div className="flex flex-col justify-between space-y-6 md:col-span-8">
+            <div className="grid items-center gap-8 p-6 md:grid-cols-12 md:p-10">
+              <div className="flex flex-col justify-between space-y-6 md:col-span-7 lg:col-span-8">
                 <div className="hero-stagger">
-                  <h1 className="font-comic text-5xl leading-none sm:text-6xl md:text-7xl">
+                  <p className="font-comic-stamp text-xs tracking-widest text-[#FF3B30]">
+                    ★ {PROFILE.superTitle} ★
+                  </p>
+                  <h1 className="font-comic-display comic-title-shadow mt-1 text-6xl leading-[0.95] text-[#FFE14D] sm:text-7xl md:text-8xl">
                     {PROFILE.name}
                   </h1>
-                  <p className="mt-4 border-l-4 border-[#111111] bg-[#FFF4B8] px-4 py-2.5 text-base font-semibold leading-snug">
-                    {ROLES[activeRole].tagline}
-                  </p>
+
+                  {/* Dynamic Role Banner */}
+                  <div className="mt-5 border-[3px] border-[#111111] bg-[#FFF4B8] px-4 py-3 shadow-[4px_4px_0px_0px_#111111]">
+                    <p className="text-base font-bold leading-snug text-[#111111] sm:text-lg">
+                      {ROLES[activeRole].tagline}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="hero-stagger rounded-2xl border-[3px] border-[#111111] bg-white px-5 py-3 text-sm font-medium shadow-[4px_4px_0px_0px_#111111]">
-                  “{PROFILE.speechBubble}”
+                {/* Speech Bubble with Comic Pointer Tail */}
+                <div className="hero-stagger pb-3">
+                  <div className="speech-bubble max-w-2xl rounded-2xl px-5 py-3.5 text-base font-bold leading-snug">
+                    “{PROFILE.speechBubble}”
+                  </div>
                 </div>
 
-                <div className="hero-stagger">
-                  <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                    <p className="text-xs font-extrabold uppercase tracking-wider text-neutral-600">
-                      Interactive Role Lens:
+                {/* Hero Key Metrics Strip */}
+                <div className="hero-stagger grid grid-cols-3 gap-2.5 pt-1 sm:max-w-lg">
+                  {PROFILE.heroStats.map((stat) => (
+                      <div
+                          key={stat.label}
+                          className="border-[2.5px] border-[#111111] bg-[#F5EFE0] px-3 py-2 text-center shadow-[3px_3px_0px_0px_#111111]"
+                      >
+                        <div className="font-comic-display text-xl leading-none text-[#FF3B30] sm:text-2xl">
+                          {stat.value}
+                        </div>
+                        <div className="mt-1 font-mono-tech text-[10px] font-extrabold uppercase">
+                          {stat.label}
+                        </div>
+                      </div>
+                  ))}
+                </div>
+
+                {/* Interactive Role Lens Selector */}
+                <div className="hero-stagger pt-1">
+                  <div className="mb-2.5 flex flex-wrap items-center justify-between gap-2">
+                    <p className="font-comic-stamp text-xs uppercase text-neutral-700">
+                      Switch Role Lens:
                     </p>
                     {(activeRole !== 'ALL' || selectedSkill) && (
                         <button
                             onClick={resetFilters}
-                            className="inline-flex items-center gap-1 text-xs font-extrabold uppercase underline decoration-2 underline-offset-4 hover:text-[#FF6B6B]"
+                            className="inline-flex items-center gap-1 border-2 border-[#111111] bg-[#FFE14D] px-2.5 py-0.5 font-comic-stamp text-[11px] hover:bg-[#FF3B30] hover:text-white"
                         >
-                          <RotateCcw className="h-3.5 w-3.5" /> Reset Filters
+                          <RotateCcw className="h-3 w-3" /> Reset Filters
                         </button>
                     )}
                   </div>
@@ -192,7 +276,7 @@ export function App() {
                           <button
                               key={roleId}
                               onClick={() => setActiveRole(roleId)}
-                              className={`comic-btn px-3.5 py-2 text-xs font-extrabold uppercase tracking-wide ${
+                              className={`comic-btn px-4 py-2 font-comic-stamp text-xs uppercase ${
                                   isActive ? role.badgeClass : 'bg-white text-[#111111]'
                               }`}
                           >
@@ -204,56 +288,61 @@ export function App() {
                 </div>
               </div>
 
-              <div className="hero-stagger flex items-center justify-center md:col-span-4">
-                <div className="flex aspect-square w-full max-w-[260px] flex-col items-center justify-center border-[3px] border-[#111111] bg-[#FAF6EE] p-4 text-center shadow-[5px_5px_0px_0px_#111111]">
-                <span className="font-comic text-2xl text-neutral-500">
-                  {PROFILE.avatarPlaceholder}
-                </span>
-                  <span className="mt-2 text-xs font-semibold text-neutral-500">
-                  Swap with an &lt;img /&gt; later
-                </span>
-                </div>
+              {/* Custom Comic Book Emblem Illustration */}
+              <div className="hero-stagger flex items-center justify-center md:col-span-5 lg:col-span-4">
+                <HeroComicEmblem />
               </div>
             </div>
           </header>
 
-          {/* ================= 2. ORIGIN STORY (ABOUT) ================= */}
-          <section className="origin-section">
-            <div className="mb-4 inline-block border-[3px] border-[#111111] bg-[#111111] px-4 py-1 text-white">
-              <h2 className="font-comic text-2xl tracking-wider">ORIGIN STORY</h2>
+          {/* ================= 2. ORIGIN STORY (3-PANEL COMIC STRIP) ================= */}
+          <section id="origin" className="origin-section">
+            <div className="mb-5 flex items-center gap-3">
+              <div className="border-[3.5px] border-[#111111] bg-[#111111] px-4 py-1.5 text-white shadow-[4px_4px_0px_0px_#FF3B30]">
+                <h2 className="font-comic-display text-3xl tracking-wider">CHAPTER 1 • ORIGIN STORY</h2>
+              </div>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-3">
               {ORIGIN_STORY.map((panel) => (
                   <div
                       key={panel.panelNum}
-                      className="comic-panel origin-panel flex flex-col justify-between p-5"
+                      className={`comic-panel origin-panel relative flex flex-col justify-between p-5 ${panel.bgClass}`}
                   >
                     <div>
-                      <div className="mb-3 flex items-center justify-between border-b-2 border-[#111111] pb-2">
-                    <span className="border-2 border-[#111111] bg-[#FFE14D] px-2 py-0.5 text-xs font-extrabold uppercase">
+                      <div className="mb-3 flex items-center justify-between border-b-[3px] border-[#111111] pb-2.5">
+                    <span className="border-2 border-[#111111] bg-[#FFE14D] px-2.5 py-0.5 font-comic-stamp text-xs">
                       {panel.caption}
                     </span>
-                        <span className="font-comic text-base text-[#FF6B6B]">{panel.sfx}!</span>
+                        <span className="-rotate-3 border-2 border-[#111111] bg-[#FF3B30] px-2 py-0.5 font-comic-display text-base text-white">
+                      {panel.sfx}
+                    </span>
                       </div>
-                      <p className="text-sm leading-relaxed text-neutral-800">{panel.text}</p>
+                      <p className="text-base font-bold leading-relaxed text-neutral-900">{panel.text}</p>
                     </div>
-                    <div className="mt-4 pt-2 text-right font-comic text-lg text-neutral-400">
-                      PANEL #{panel.panelNum}
+                    <div className="mt-4 flex items-center justify-between border-t-2 border-dashed border-neutral-300 pt-2">
+                  <span className="font-mono-tech text-[11px] font-bold text-neutral-500">
+                    HARISH J • ARCHIVE
+                  </span>
+                      <span className="font-comic-display text-xl text-neutral-400">
+                    #{panel.panelNum}
+                  </span>
                     </div>
                   </div>
               ))}
             </div>
           </section>
 
-          {/* ================= 3. THE UTILITY BELT (SKILLS) ================= */}
-          <section className="skills-section">
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-              <div className="inline-block border-[3px] border-[#111111] bg-[#111111] px-4 py-1 text-white">
-                <h2 className="font-comic text-2xl tracking-wider">THE UTILITY BELT • SKILLS</h2>
+          {/* ================= 3. THE UTILITY BELT (INTERACTIVE SKILLS) ================= */}
+          <section id="skills" className="skills-section">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+              <div className="border-[3.5px] border-[#111111] bg-[#111111] px-4 py-1.5 text-white shadow-[4px_4px_0px_0px_#2EC4B6]">
+                <h2 className="font-comic-display text-3xl tracking-wider">
+                  CHAPTER 2 • THE UTILITY BELT
+                </h2>
               </div>
-              <span className="inline-flex items-center gap-1 text-xs font-bold uppercase text-neutral-600">
-              <Sparkles className="h-3.5 w-3.5" /> Click any skill to spotlight matching projects
+              <span className="inline-flex items-center gap-1.5 border-2 border-[#111111] bg-white px-3 py-1 font-comic-stamp text-[11px] shadow-[3px_3px_0px_0px_#111111]">
+              <Sparkles className="h-4 w-4 text-[#FF3B30]" /> Click any skill to spotlight projects
             </span>
             </div>
 
@@ -263,11 +352,16 @@ export function App() {
                       key={group.title}
                       className="comic-panel skill-panel flex flex-col overflow-hidden"
                   >
-                    <div className={`border-b-[3px] border-[#111111] px-4 py-2.5 ${group.accentBg}`}>
-                      <h3 className="font-comic text-xl leading-none">{group.title}</h3>
-                      <p className="mt-1 text-[11px] font-bold uppercase opacity-90">
-                        {group.roleAlignment}
-                      </p>
+                    <div className={`border-b-[3.5px] border-[#111111] px-4 py-3 ${group.accentBg}`}>
+                      <div className="flex items-center justify-between">
+                    <span className="font-mono-tech text-[10px] font-extrabold uppercase opacity-90">
+                      {group.code}
+                    </span>
+                        <span className="border border-[#111111] bg-white/90 px-1.5 py-0.5 font-mono-tech text-[10px] font-extrabold text-[#111111]">
+                      {group.roleAlignment}
+                    </span>
+                      </div>
+                      <h3 className="font-comic-display mt-1.5 text-2xl leading-none">{group.title}</h3>
                     </div>
                     <div className="flex flex-wrap gap-2 p-4">
                       {group.items.map((skill) => {
@@ -277,8 +371,10 @@ export function App() {
                                 key={skill}
                                 type="button"
                                 onClick={() => handleSkillClick(skill)}
-                                className={`comic-btn px-2.5 py-1 text-xs font-bold ${
-                                    isSelected ? 'bg-[#FFE14D] text-[#111111]' : 'bg-[#FAF6EE] text-[#111111]'
+                                className={`comic-btn px-2.5 py-1 font-mono-tech text-xs font-extrabold ${
+                                    isSelected
+                                        ? 'bg-[#FFE14D] text-[#111111]'
+                                        : 'bg-[#F5EFE0] text-[#111111] hover:bg-white'
                                 }`}
                             >
                               {skill}
@@ -291,28 +387,30 @@ export function App() {
             </div>
           </section>
 
-          {/* ================= 4. FEATURED ISSUES (PROJECTS) ================= */}
-          <section className="projects-section">
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          {/* ================= 4. FEATURED ISSUES (PROJECTS + SVG BLUEPRINTS) ================= */}
+          <section id="projects" className="projects-section">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-3">
-                <div className="inline-block border-[3px] border-[#111111] bg-[#111111] px-4 py-1 text-white">
-                  <h2 className="font-comic text-2xl tracking-wider">FEATURED ISSUES • PROJECTS</h2>
+                <div className="border-[3.5px] border-[#111111] bg-[#111111] px-4 py-1.5 text-white shadow-[4px_4px_0px_0px_#FFE14D]">
+                  <h2 className="font-comic-display text-3xl tracking-wider">
+                    CHAPTER 3 • FEATURED ISSUES
+                  </h2>
                 </div>
-                <span className="border-2 border-[#111111] bg-white px-2.5 py-0.5 text-xs font-extrabold uppercase">
-                {matchingCount} of {PROJECTS.length} Matching
+                <span className="border-[2.5px] border-[#111111] bg-white px-3 py-1 font-comic-stamp text-xs shadow-[3px_3px_0px_0px_#111111]">
+                {matchingCount} / {PROJECTS.length} ACTIVE
               </span>
                 {selectedSkill && (
-                    <span className="border-2 border-[#111111] bg-[#FFE14D] px-2.5 py-0.5 text-xs font-extrabold">
-                  Skill: {selectedSkill}
+                    <span className="border-[2.5px] border-[#111111] bg-[#FFE14D] px-3 py-1 font-mono-tech text-xs font-extrabold shadow-[3px_3px_0px_0px_#111111]">
+                  FILTER: {selectedSkill}
                 </span>
                 )}
               </div>
-              <span className="text-xs font-bold uppercase text-neutral-600">
-              Click a panel to open details &amp; GitHub
+              <span className="font-comic-stamp text-xs text-neutral-700">
+              Click any panel for full architecture &amp; GitHub →
             </span>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-7 md:grid-cols-2">
               {PROJECTS.map((project) => {
                 const highlighted = isProjectHighlighted(project);
 
@@ -324,13 +422,25 @@ export function App() {
                             project.featured ? 'md:col-span-2' : ''
                         } ${highlighted ? 'opacity-100' : 'opacity-30 grayscale'}`}
                     >
-                      <div className="flex flex-wrap items-center justify-between gap-2 border-b-[3px] border-[#111111] bg-[#FAF6EE] px-4 py-2.5">
-                        <span className="font-comic text-lg">{project.issueNumber}</span>
-                        <div className="flex flex-wrap gap-1.5">
+                      {/* Panel Header Bar */}
+                      <div className="flex flex-wrap items-center justify-between gap-2 border-b-[3.5px] border-[#111111] bg-[#F5EFE0] px-4 py-2.5">
+                        <div className="flex items-center gap-2">
+                      <span className="border-2 border-[#111111] bg-[#111111] px-2 py-0.5 font-comic-stamp text-[11px] text-white">
+                        {project.issueNumber}
+                      </span>
+                          <span className="font-mono-tech text-xs font-extrabold text-neutral-700">
+                        {project.dateTag}
+                      </span>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-1.5">
+                      <span className="border-2 border-[#111111] bg-[#FFE14D] px-2 py-0.5 font-mono-tech text-[10px] font-extrabold">
+                        {project.impactBadge}
+                      </span>
                           {project.roles.map((r) => (
                               <span
                                   key={r}
-                                  className={`border-2 border-[#111111] px-2 py-0.5 text-[11px] font-extrabold uppercase ${ROLES[r].badgeClass}`}
+                                  className={`border-2 border-[#111111] px-2 py-0.5 font-comic-stamp text-[10px] uppercase ${ROLES[r].badgeClass}`}
                               >
                           {ROLES[r].shortLabel}
                         </span>
@@ -338,25 +448,33 @@ export function App() {
                         </div>
                       </div>
 
-                      <div className="flex flex-1 flex-col justify-between gap-4 p-5">
+                      {/* Panel Content */}
+                      <div className="flex flex-1 flex-col justify-between gap-4 p-5 sm:p-6">
                         <div>
-                          <h3 className="font-comic text-3xl leading-tight">{project.title}</h3>
+                          <h3 className="font-comic-display text-3xl leading-none sm:text-4xl">
+                            {project.title}
+                          </h3>
 
-                          <div className="mt-3 flex h-36 items-center justify-center border-2 border-dashed border-[#111111] bg-[#FAF6EE] px-4 text-center text-xs font-bold text-neutral-500">
-                            {project.thumbnailLabel}
+                          {/* Illustrated Comic Architecture Diagram */}
+                          <div className="mt-4 overflow-hidden border-[3px] border-[#111111] bg-[#FFFDF7] p-2 shadow-[4px_4px_0px_0px_#111111]">
+                            <div className="h-32 w-full sm:h-36">
+                              <ProjectComicDiagram type={project.visualType} />
+                            </div>
                           </div>
 
-                          <p className="mt-3 border-2 border-[#111111] bg-[#FFF4B8] px-3 py-2 text-sm font-medium">
+                          {/* Yellow Comic Narration Box */}
+                          <p className="mt-4 border-[2.5px] border-[#111111] bg-[#FFF4B8] px-3.5 py-2.5 text-base font-bold leading-snug">
                             {project.hook}
                           </p>
                         </div>
 
-                        <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                        {/* Panel Footer */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 border-t-2 border-neutral-200 pt-3">
                           <div className="flex flex-wrap gap-1.5">
                             {project.techStack.map((tech) => (
                                 <span
                                     key={tech}
-                                    className={`border-2 border-[#111111] px-2 py-0.5 text-[11px] font-bold ${
+                                    className={`border-2 border-[#111111] px-2 py-0.5 font-mono-tech text-[11px] font-extrabold ${
                                         selectedSkill === tech ? 'bg-[#FFE14D]' : 'bg-white'
                                     }`}
                                 >
@@ -364,8 +482,8 @@ export function App() {
                           </span>
                             ))}
                           </div>
-                          <span className="inline-flex items-center gap-1 text-xs font-extrabold uppercase underline decoration-2 underline-offset-4">
-                        Inspect Panel <ArrowUpRight className="h-4 w-4" />
+                          <span className="inline-flex items-center gap-1 border-2 border-[#111111] bg-[#111111] px-3 py-1 font-comic-stamp text-[11px] text-[#FFE14D]">
+                        Open Issue <ArrowUpRight className="h-3.5 w-3.5" />
                       </span>
                         </div>
                       </div>
@@ -375,13 +493,49 @@ export function App() {
             </div>
           </section>
 
-          {/* ================= 5. THE SIGNAL (CONTACT) ================= */}
-          <footer className="comic-panel bg-[#FFE14D] p-6 md:p-8">
+          {/* ================= 5. HONORS, CERTIFICATION & EDUCATION ================= */}
+          <section id="honors" className="honors-section">
+            <div className="mb-5 flex items-center gap-3">
+              <div className="border-[3.5px] border-[#111111] bg-[#111111] px-4 py-1.5 text-white shadow-[4px_4px_0px_0px_#8B5CF6]">
+                <h2 className="font-comic-display text-3xl tracking-wider">
+                  CHAPTER 4 • CREDENTIALS &amp; ARENA
+                </h2>
+              </div>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              {HONORS_AND_EDU.map((item) => (
+                  <div key={item.title} className="comic-panel honor-panel flex flex-col overflow-hidden">
+                    <div className={`flex items-center justify-between border-b-[3px] border-[#111111] px-4 py-2 ${item.accent}`}>
+                      <span className="font-comic-stamp text-xs">{item.badge}</span>
+                      <Award className="h-4 w-4" />
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-comic-display text-2xl leading-tight">{item.title}</h3>
+                      <p className="mt-1 font-mono-tech text-xs font-extrabold text-neutral-600">
+                        {item.subtitle}
+                      </p>
+                      <p className="mt-3 text-base font-bold leading-relaxed text-neutral-900">
+                        {item.detail}
+                      </p>
+                    </div>
+                  </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ================= 6. THE SIGNAL (FOOTER CTA) ================= */}
+          <footer id="contact" className="comic-panel bg-halftone-yellow p-6 md:p-9">
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-              <div>
-                <h2 className="font-comic text-4xl leading-none">THE SIGNAL • LET&apos;S CONNECT</h2>
-                <p className="mt-2 text-sm font-semibold">
-                  Open to AI Software Engineering, Data Analyst, and Data Scientist roles.
+              <div className="border-[3px] border-[#111111] bg-white p-4 shadow-[5px_5px_0px_0px_#111111]">
+              <span className="bg-[#FF3B30] px-2 py-0.5 font-comic-stamp text-[11px] text-white">
+                NEXT ISSUE: YOUR TEAM
+              </span>
+                <h2 className="font-comic-display mt-1 text-4xl leading-none sm:text-5xl">
+                  SEND THE SIGNAL • LET&apos;S BUILD
+                </h2>
+                <p className="mt-2 text-base font-bold">
+                  Open to AI Software Engineer, Data Analyst, and Data Scientist roles in Chennai or Remote.
                 </p>
               </div>
 
@@ -390,7 +544,7 @@ export function App() {
                     href={PROFILE.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="comic-btn inline-flex items-center gap-2 bg-white px-4 py-2.5 text-xs font-extrabold uppercase"
+                    className="comic-btn inline-flex items-center gap-2 bg-white px-4 py-3 font-comic-stamp text-xs"
                 >
                   <Code2 className="h-4 w-4" /> GitHub
                 </a>
@@ -398,21 +552,27 @@ export function App() {
                     href={PROFILE.linkedinUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="comic-btn inline-flex items-center gap-2 bg-white px-4 py-2.5 text-xs font-extrabold uppercase"
+                    className="comic-btn inline-flex items-center gap-2 bg-white px-4 py-3 font-comic-stamp text-xs"
                 >
                   <Briefcase className="h-4 w-4" /> LinkedIn
                 </a>
                 <a
                     href={`mailto:${PROFILE.email}`}
-                    className="comic-btn inline-flex items-center gap-2 bg-white px-4 py-2.5 text-xs font-extrabold uppercase"
+                    className="comic-btn inline-flex items-center gap-2 bg-white px-4 py-3 font-comic-stamp text-xs"
                 >
                   <Mail className="h-4 w-4" /> Email
+                </a>
+                <a
+                    href={`tel:${PROFILE.phone}`}
+                    className="comic-btn inline-flex items-center gap-2 bg-white px-4 py-3 font-comic-stamp text-xs"
+                >
+                  <Phone className="h-4 w-4" /> Call
                 </a>
                 <a
                     href={PROFILE.resumeUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="comic-btn inline-flex items-center gap-2 bg-[#111111] px-4 py-2.5 text-xs font-extrabold uppercase text-white"
+                    className="comic-btn inline-flex items-center gap-2 bg-[#111111] px-4 py-3 font-comic-stamp text-xs text-[#FFE14D]"
                 >
                   <FileText className="h-4 w-4" /> Resume PDF
                 </a>
