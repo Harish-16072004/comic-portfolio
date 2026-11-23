@@ -45,11 +45,10 @@ export const PROFILE = {
     priceTag: 'OPEN TO HIRE',
     speechBubble:
         'Welcome to Issue #01! Toggle a Role Lens, click any Skill gadget to highlight matching builds, or crack open any comic panel to inspect the architecture.',
-    resumeUrl: '#[RESUME_PDF_URL]',
+    resumeUrl: '/resume.html',
     email: 'harishjaysankar001@gmail.com',
-    phone: '+91 7305432775',
     githubUrl: 'https://github.com/Harish-16072004',
-    linkedinUrl: 'https://linkedin.com/in/[YOUR_LINKEDIN_HANDLE]',
+    linkedinUrl: 'https://www.linkedin.com/in/harish-j-57a94b31a',
     heroStats: [
         { label: 'HACKATHON RANK', value: 'TOP 170 / 60K' },
         { label: 'LIVE USERS', value: '100+ LIVE' },
@@ -226,7 +225,7 @@ export const PROJECTS: ProjectItem[] = [
         impact:
             'Validated with 26 unit tests and 12 consecutive on-device control cycles; iQOO Hackathon 2026 Grand Finale team (top 170 of 60,000 registered teams).',
         techStack: ['Kotlin', 'Gemini API', 'Whisper', 'Git/GitHub'],
-        githubUrl: 'https://github.com/Harish-16072004/[PHONE_AGENT_REPO]',
+        githubUrl: 'https://github.com/Harish-16072004/antar',
     },
     {
         id: 'shackles-symposium',
@@ -246,7 +245,7 @@ export const PROJECTS: ProjectItem[] = [
         ],
         impact: 'Ran live on AWS EC2 with 100+ participants while maintaining accurate records and registrations.',
         techStack: ['Python', 'FastAPI', 'PostgreSQL', 'SQL', 'AWS'],
-        githubUrl: 'https://github.com/Harish-16072004/[SHACKLES_REPO]',
+        githubUrl: 'https://github.com/Harish-16072004/shackles-py',
         demoUrl: 'https://[LIVE_DEMO_URL]',
     },
     {

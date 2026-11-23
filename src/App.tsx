@@ -10,7 +10,6 @@ import {
   Sparkles,
   RotateCcw,
   Award,
-  Phone,
 } from 'lucide-react';
 import {
   PROFILE,
@@ -86,21 +85,6 @@ export function App() {
         clearProps: 'transform',
         scrollTrigger: {
           trigger: '.skills-section',
-          start: 'top 84%',
-          once: true,
-        },
-      });
-
-      gsap.from('.project-panel', {
-        y: 40,
-        scale: 0.97,
-        opacity: 0,
-        duration: 0.55,
-        stagger: 0.12,
-        ease: 'power2.out',
-        clearProps: 'transform',
-        scrollTrigger: {
-          trigger: '.projects-section',
           start: 'top 84%',
           once: true,
         },
@@ -410,7 +394,7 @@ export function App() {
             </span>
             </div>
 
-            <div className="grid gap-7 md:grid-cols-2">
+            <div className="grid min-w-0 gap-7 md:grid-cols-2">
               {PROJECTS.map((project) => {
                 const highlighted = isProjectHighlighted(project);
 
@@ -418,7 +402,7 @@ export function App() {
                     <article
                         key={project.id}
                         onClick={() => setSelectedProject(project)}
-                        className={`comic-panel-interactive project-panel flex cursor-pointer flex-col overflow-hidden ${
+                        className={`comic-panel-interactive project-panel min-w-0 flex cursor-pointer flex-col overflow-hidden ${
                             project.featured ? 'md:col-span-2' : ''
                         } ${highlighted ? 'opacity-100' : 'opacity-30 grayscale'}`}
                     >
@@ -456,8 +440,8 @@ export function App() {
                           </h3>
 
                           {/* Illustrated Comic Architecture Diagram */}
-                          <div className="mt-4 overflow-hidden border-[3px] border-[#111111] bg-[#FFFDF7] p-2 shadow-[4px_4px_0px_0px_#111111]">
-                            <div className="h-32 w-full sm:h-36">
+                          <div className="mt-4 min-w-0 overflow-hidden border-[3px] border-[#111111] bg-[#FFFDF7] p-2 shadow-[4px_4px_0px_0px_#111111]">
+                            <div className="h-32 w-full min-w-0 sm:h-36">
                               <ProjectComicDiagram type={project.visualType} />
                             </div>
                           </div>
@@ -561,12 +545,6 @@ export function App() {
                     className="comic-btn inline-flex items-center gap-2 bg-white px-4 py-3 font-comic-stamp text-xs"
                 >
                   <Mail className="h-4 w-4" /> Email
-                </a>
-                <a
-                    href={`tel:${PROFILE.phone}`}
-                    className="comic-btn inline-flex items-center gap-2 bg-white px-4 py-3 font-comic-stamp text-xs"
-                >
-                  <Phone className="h-4 w-4" /> Call
                 </a>
                 <a
                     href={PROFILE.resumeUrl}

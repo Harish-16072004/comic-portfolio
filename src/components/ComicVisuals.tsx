@@ -81,7 +81,7 @@ export function HeroComicEmblem() {
 export function ProjectComicDiagram({ type }: { type: ProjectVisualType }) {
     if (type === 'documind') {
         return (
-            <svg viewBox="0 0 560 150" className="h-full w-full">
+            <svg viewBox="0 0 560 150" preserveAspectRatio="xMidYMid meet" className="block h-full max-w-full w-full">
                 <rect width="560" height="150" fill="#FFFDF7" />
                 {/* Node 1: Policy Docs */}
                 <rect x="18" y="34" width="118" height="82" rx="6" fill="#FFE14D" stroke="#111111" strokeWidth="3.5" />
@@ -126,7 +126,7 @@ export function ProjectComicDiagram({ type }: { type: ProjectVisualType }) {
 
     if (type === 'phone-agent') {
         return (
-            <svg viewBox="0 0 560 150" className="h-full w-full">
+            <svg viewBox="0 0 560 150" preserveAspectRatio="xMidYMid meet" className="block h-full max-w-full w-full">
                 <rect width="560" height="150" fill="#FFFDF7" />
                 <rect x="20" y="34" width="124" height="82" rx="6" fill="#2EC4B6" stroke="#111111" strokeWidth="3.5" />
                 <text x="82" y="68" textAnchor="middle" fontFamily="Bungee, sans-serif" fontSize="12" fill="#111111">
@@ -166,7 +166,7 @@ export function ProjectComicDiagram({ type }: { type: ProjectVisualType }) {
 
     if (type === 'symposium') {
         return (
-            <svg viewBox="0 0 560 150" className="h-full w-full">
+            <svg viewBox="0 0 560 150" preserveAspectRatio="xMidYMid meet" className="block h-full max-w-full w-full">
                 <rect width="560" height="150" fill="#FFFDF7" />
                 <rect x="22" y="34" width="122" height="82" rx="6" fill="#FFE14D" stroke="#111111" strokeWidth="3.5" />
                 <text x="83" y="68" textAnchor="middle" fontFamily="Bungee, sans-serif" fontSize="12" fill="#111111">
@@ -205,7 +205,7 @@ export function ProjectComicDiagram({ type }: { type: ProjectVisualType }) {
     }
 
     return (
-        <svg viewBox="0 0 560 150" className="h-full w-full">
+        <svg viewBox="0 0 560 150" preserveAspectRatio="xMidYMid meet" className="block h-full max-w-full w-full">
             <rect width="560" height="150" fill="#FFFDF7" />
             <rect x="22" y="34" width="124" height="82" rx="6" fill="#FF3B30" stroke="#111111" strokeWidth="3.5" />
             <text x="84" y="68" textAnchor="middle" fontFamily="Bungee, sans-serif" fontSize="12" fill="#FFFFFF">
