@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FAF6EE;
+    background-image: radial-gradient(#11111118 1.25px, transparent 1.25px);
+    background-size: 16px 16px;
+    overflow-x: hidden;
+  }
+}
+
+.font-comic {
+  font-family: 'Bangers', cursive;
+  letter-spacing: 0.06em;
+}
+
+.comic-panel {
+  border: 3px solid #111111;
+  box-shadow: 6px 6px 0px 0px #111111;
+  background-color: #FFFFFF;
+}
+
+.comic-panel-interactive {
+  border: 3px solid #111111;
+  box-shadow: 6px 6px 0px 0px #111111;
+  background-color: #FFFFFF;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.25s ease;
+}
+
+.comic-panel-interactive:hover {
+  transform: translate(-3px, -3px) rotate(-0.4deg);
+  box-shadow: 9px 9px 0px 0px #111111;
+}
+
+.comic-btn {
+  border: 2.5px solid #111111;
+  box-shadow: 3px 3px 0px 0px #111111;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s ease;
+}
+
+.comic-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px 0px #111111;
+}
+
+.comic-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px 0px #111111;
+}
